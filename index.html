@@ -1,0 +1,135 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <head>
+     
+    </head>
+    <body>
+    
+    <h1>List of my students</h1>
+    <div id="container" class="section"></div>
+    
+    <div id="jss1-container" class="section">
+      <h2>JSS 1 Students</h2>
+    </div>
+    
+    <div id="jss2-container" class="section">
+      <h2>JSS 2 Students</h2>
+    </div>
+    
+    <div id="jss3-container" class="section">
+      <h2>JSS 3 Students</h2>
+    </div>
+    
+    <!-- ✅ Grade container added -->
+    <div id="grade-container" class="section">
+      <h2>Students by Grade</h2>
+    </div>
+    
+    <script>
+    let studentRegister = [
+      { name:'lere', class:"Jss 3", score:40 },
+      { name:'praise', class:"Jss 2", score:70 },
+      { name:'anita', class:"Jss 1", score:20 },
+      { name:'timothy', class:"Jss 3", score:38 },
+      { name:'plangshak', class:"Jss 1", score:25 },
+      { name:'nanbam', class:"Jss 3", score:90 },
+      { name:'promise', class:"Jss 2", score:60 },
+      { name:'kristin', class:"Jss 1", score:80 },
+      { name:'peter', class:"Jss 2", score:10 },
+    ];
+    
+    // Table of all students
+    let container = document.querySelector('#container');
+    let lists = `<table>
+      <tr>
+        <th>S/n</th> 
+        <th>Name</th> 
+        <th>Class</th> 
+        <th>Score</th>
+      </tr>`;
+    
+    let num = 1;
+    studentRegister.forEach(item => {
+      lists += `<tr><td>${num++}</td> <td>${item.name}</td> <td>${item.class}</td> <td>${item.score}</td></tr>`;
+    });
+    lists += "</table><hr>";
+    container.innerHTML = lists;
+    
+    // Class-based list
+    let jss1List = "<ul>";
+    let jss2List = "<ul>";
+    let jss3List = "<ul>";
+    
+    studentRegister.forEach(student => {
+      let item = `<li>My name is ${student.name}, I am in ${student.class}</li>`;
+      if (student.class === "Jss 1") jss1List += item;
+      else if (student.class === "Jss 2") jss2List += item;
+      else if (student.class === "Jss 3") jss3List += item;
+    });
+    
+    jss1List += "</ul>";
+    jss2List += "</ul>";
+    jss3List += "</ul><hr>";
+    
+    document.querySelector('#jss1-container').innerHTML += jss1List;
+    document.querySelector('#jss2-container').innerHTML += jss2List;
+    document.querySelector('#jss3-container').innerHTML += jss3List;
+    
+    // Grade logic
+    function getGrade(score) {
+      if (score >= 70) return "A";
+      if (score >= 60) return "B";
+      if (score >= 50) return "C";
+      if (score >= 40) return "D";
+      return "F";
+    }
+    
+    // Group by grades
+   let gradeGroups = {};
+    
+    studentRegister.forEach(student => {
+     let grade = getGrade(student.score);
+      if (!gradeGroups[grade]) {
+        gradeGroups[grade] = [];
+      }
+      gradeGroups[grade].push(student);
+    });
+    
+    // Display grade group
+   let gradeContainer = document.getElementById("grade-container");
+    
+    for (let grade in gradeGroups) {
+        let section = document.createElement("section");
+    
+        let title = document.createElement("h2");
+      title.textContent = `Grade ${grade}`;
+      section.appendChild(title);
+    
+      let ul = document.createElement("ul");
+    
+      gradeGroups[grade].forEach(student => {
+        let li = document.createElement("li");
+        li.textContent = `${student.name} - ${student.class} - Score: ${student.score}`;
+        ul.appendChild(li);
+      });
+    
+      section.appendChild(ul);
+      gradeContainer.appendChild(section); // ✅ This was missing
+    }
+    </script>
+    
+
+    
+    
+    
+</body>
+</html>
