@@ -84,7 +84,7 @@
     document.querySelector('#jss2-container').innerHTML += jss2List;
     document.querySelector('#jss3-container').innerHTML += jss3List;
     
-    // Grade logic
+ 
     function getGrade(score) {
       if (score >= 70) return "A";
       if (score >= 60) return "B";
@@ -123,7 +123,7 @@
       });
     
       section.appendChild(ul);
-      gradeContainer.appendChild(section); // ✅ This was missing
+      gradeContainer.appendChild(section);
     }
     </script>
     
